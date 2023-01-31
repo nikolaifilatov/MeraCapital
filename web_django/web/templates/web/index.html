@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MeraCapital Test-task</title>
+    <!-- Bootstrap Styles-->
+    <link href="{% static "web/bootstrap.css" %}" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="{% static "web/custom-styles.css" %}" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> 
+     
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="page-wrapper">
+            <div id="page-inner">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-header">
+                            Summary
+                        </h1>
+                    </div>
+                </div>
+				
+                <div class="row">
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="panel panel-primary text-center no-boder bg-color-brown">
+                            <div class="panel-left pull-left blue">
+                                <i class="fa fa-users fa-5x"></i>
+                                
+                            </div>
+                            <div class="panel-right">
+				    <h3 id='accountBalance'>{{ account_balance }}</h3>
+                             <strong>Balance (BTC)</strong>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="panel panel-primary text-center no-boder bg-color-green green">
+				<div class="panel-left pull-left {% if pnl >= 0 %}green{% else %}red{% endif %}">
+                                <i class="fa fa-eye fa-5x"></i>
+                                
+                            </div>
+                            <div class="panel-right">
+				    <h3><span id='pnl'>{{ pnl|floatformat }}</span> $</h3>
+                               <strong>PnL</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="panel panel-primary text-center no-boder bg-color-blue">
+                              <div class="panel-left pull-left {% if pnl_index >= 1 %}green{% else %}red{% endif %}">
+                                <i class="fa fa-shopping-cart fa-5x"></i>
+								</div>
+                                
+                            <div class="panel-right">
+				    <h3 id='pnlIndex'>{{ pnl_index|floatformat:4 }}</h3>
+                               <strong>PnL Index</strong>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="panel panel-primary text-center no-boder bg-color-red">
+                            <div class="panel-left pull-left {% if pnl_index >= 1 %}green{% else %}red{% endif %}">
+                                <i class="fa fa fa-comments fa-5x"></i>
+                               
+                            </div>
+                            <div class="panel-right">
+							 <h3 id='pnlPersentage'>{{ pnl_percentage }}</h3>
+                               <strong> PnL % </strong>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+		<form method='post' id='period'>
+		    {% csrf_token %}
+                    <div class="row">
+		        {% for field in period %}
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="panel-primary text-center">
+		    	    {{ field.label_tag }}
+		    	    {{ field }}
+                            </div>
+                        </div>
+		        {% endfor %}
+                    </div>
+                    <div class="row text-center">
+			<input type='submit' name='get_for_period' value='Get for selected period' class='btn btn-info'>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static "web/jquery-1.10.2.js" %}"></script>
+    <script src="{% static "web/custom-scripts.js" %}"></script>
+ 
+
+</body>
+
+</html>
